@@ -34,11 +34,12 @@ angular.module('app')
   // but change the value
   var moveValueToObj = function (from, to) {
     for (var key in from) {
-      console.log(key);
-      to[key] = from[key];
-    }
-    ;
-    return to;
+      if (typeof from[key] === 'object'){
+        moveValueToObj(from[key], to[key]);
+      } else{
+        to[key] = from[key];
+      }
+    };
   };
 
   var getData = function(){
@@ -62,6 +63,7 @@ angular.module('app')
 angular.module('app')
 .controller('BodyController', function ($scope, GetData) {
     $scope.data = GetData.getData();
+    $scope.dataShorter = GetData.getData()["3"]["3"];
 });
 
 angular.module('app')
